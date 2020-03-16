@@ -4,17 +4,21 @@ import App from './App';
 
 afterEach(cleanup);
 
-it('show a link to the Study Guide', () => {
-  const { queryByText } = render(<App />);
+describe('App component', () => {
 
-  expect(queryByText('Study Guide')).toBeInTheDocument();
-  expect(queryByText('Back to Game')).not.toBeInTheDocument();
-});
+  it('should show a link to the Study Guide', () => {
+    const { queryByText } = render(<App />);
 
-it('show a link Back to the Game after clicking the Study Guide', () => {
-  const { queryByText } = render(<App />);
-  fireEvent.click(queryByText('Study Guide'));
+    expect(queryByText('Study Guide')).toBeInTheDocument();
+    expect(queryByText('Back to Game')).not.toBeInTheDocument();
+  });
 
-  expect(queryByText('Back to Game')).toBeInTheDocument();
-  expect(queryByText('Study Guide')).not.toBeInTheDocument();
+  it('should show a link Back to the Game after clicking the Study Guide', () => {
+    const { queryByText } = render(<App />);
+    fireEvent.click(queryByText('Study Guide'));
+
+    expect(queryByText('Back to Game')).toBeInTheDocument();
+    expect(queryByText('Study Guide')).not.toBeInTheDocument();
+  });
+
 });
