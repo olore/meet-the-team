@@ -1,9 +1,24 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import {fireEvent, render, cleanup} from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+afterEach(cleanup);
+
+describe('App component', () => {
+
+  it('should show a link to the Study Guide', () => {
+    const { queryByText } = render(<App />);
+
+    expect(queryByText('Study Guide')).toBeInTheDocument();
+    expect(queryByText('Back to Game')).not.toBeInTheDocument();
+  });
+
+  it('should show a link Back to the Game after clicking the Study Guide', () => {
+    const { queryByText } = render(<App />);
+    fireEvent.click(queryByText('Study Guide'));
+
+    expect(queryByText('Back to Game')).toBeInTheDocument();
+    expect(queryByText('Study Guide')).not.toBeInTheDocument();
+  });
+
 });
